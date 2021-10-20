@@ -107,7 +107,7 @@ export default class Node {
         dom.classList.add('selected')
       }
 
-      if (this.store.checkOnClickNode && !this.disabled) {
+      if (this.store.checkOnClickNode && !this.disabled && !(this.store.breadcrumb && !this.isLeaf)) {
         this.handleCheckChange({
           target: { checked: !this.checked }
         })
@@ -508,6 +508,11 @@ export default class Node {
 
   // 设置是否选中
   setChecked (checked, isInitDefault) {
+    if (checked && this.store.checkMaxNodes(this)) {
+      this.store.limitAlert()
+      return
+    }
+
     if (this.store.showRadio) {
       this.updateRadioChecked(checked, isInitDefault)
       return
