@@ -17,13 +17,15 @@ export default class Tree {
     _init(): void;
     vlist: Vlist | undefined;
     _render(update?: boolean): void;
+    _keywordFilter(data: any): void;
     _hasKeyword(v: any): any;
     _checkFilter(v: any): any;
     filter(keyword: string | undefined, onlySearchLeaf: any): any[];
     getNodeById(id: any): any;
-    getCheckedNodes(): any[];
+    getCheckedNodes(...args: any[]): any[];
     setMaxValue(value?: number): void;
     scrollToIndex(index?: number): void;
+    clearCheckedNodes(): void;
 }
 import Breadcrumb from "../breadcrumb";
 import TreeStore from "./store";

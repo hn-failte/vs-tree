@@ -265,10 +265,10 @@ export default class Node {
     checkbox.checked = this.checked
     checkbox.disabled = this.disabled
     checkbox.className = `vs-${label}__original`
-    checkbox.name = label === 'radio' ? 'vs-radio' + (this.store.radioParentoOnly ? this.parent.id : '') : 'vs-checkbox'
+    checkbox.name = label === 'radio' ? 'vs-radio' + (this.store.radioParentoOnly && this.parent ? this.parent.id : '') : 'vs-checkbox'
 
     if (label === 'radio') {
-      checkbox.name = 'vs-radio' + (this.store.radioParentoOnly ? this.parent.id : '')
+      checkbox.name = 'vs-radio' + (this.store.radioParentoOnly && this.parent ? this.parent.id : '')
       this.radioNode = checkbox
     } else {
       checkbox.name = 'vs-checkbox'
@@ -320,7 +320,7 @@ export default class Node {
       this.updateChecked(checked)
       this.updateCheckedParent(checked)
     }
-    this.store.change(this)
+    this.store._change(this)
   }
 
   createText () {
@@ -521,6 +521,8 @@ export default class Node {
 
     this.updateChecked(checked, isInitDefault)
     this.updateCheckedParent(checked, isInitDefault)
+
+    this.store._change(this)
   }
 
   // 设置禁止选中
